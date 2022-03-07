@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graf"
+    app:startDestination="@id/cityFragment">
+
+    <fragment
+        android:id="@+id/cityFragment"
+        android:name="com.example.hw_15_1.CityFragment"
+        android:label="CityFragment" >
+        <action
+            android:id="@+id/action_cityFragment_to_selectedFragment"
+            app:destination="@id/selectedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectedFragment"
+        android:name="com.example.hw_15_1.SelectedFragment"
+        android:label="SelectedFragment" />
+</navigation>
