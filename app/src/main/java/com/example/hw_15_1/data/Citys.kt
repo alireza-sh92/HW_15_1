@@ -1,4 +1,4 @@
-package com.example.hw_15_1
+package com.example.hw_15_1.data
 
 object Citys {
     val city_1 = City("Tehran")

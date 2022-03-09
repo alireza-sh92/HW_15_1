@@ -7,14 +7,11 @@ import android.widget.TextView
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hw_15_1.City
 import com.example.hw_15_1.R
+import com.example.hw_15_1.data.City
 
 class RecyclerAdapter(private val cityList:List<City>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     var tracker: SelectionTracker<City>? = null
-    init {
-        setHasStableIds(true)
-    }
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val cityTextView = itemView.findViewById<TextView>(R.id.tvCityName)
 
@@ -47,6 +44,6 @@ class RecyclerAdapter(private val cityList:List<City>) : RecyclerView.Adapter<Re
     }
 
     fun getItem(position: Int) = cityList[position]
-    fun getPosition(name: String) = cityList.map { it.name }
+    fun getPosition(name: String) = cityList.indexOfFirst { it.name == name  }
 
 }

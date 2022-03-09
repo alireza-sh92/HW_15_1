@@ -1,4 +1,4 @@
-package com.example.hw_15_1
+package com.example.hw_15_1.data
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
