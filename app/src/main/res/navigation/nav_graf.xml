@@ -14,6 +14,6 @@
     </fragment>
     <fragment
         android:id="@+id/selectedFragment"
-        android:name="com.example.hw_15_1.SelectedFragment"
+        android:name="com.example.hw_15_1.SelectedCityFragment"
         android:label="SelectedFragment" />
 </navigation>

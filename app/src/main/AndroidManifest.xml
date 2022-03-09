@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hw_15_1">
 
+        <uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,6 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data android:name="io.sentry.dsn" android:value="https://64e687dd2076492bb1534b34dc7858b6@o1139639.ingest.sentry.io/6195490" />
+
+        <meta-data
+            android:name="io.sentry.traces.sample-rate" android:value="1.0" />
     </application>
 
 </manifest>

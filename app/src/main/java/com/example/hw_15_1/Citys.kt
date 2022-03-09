@@ -12,7 +12,7 @@ object Citys {
     val city_9 = City("Chabahar")
     val city_10 = City("Kabul")
 }
-fun getCityName(element: Citys = Citys): List<String> {
-  val listOfCitys:List<String> = listOf(element.city_1.name, element.city_2.name, element.city_3.name, element.city_4.name, element.city_5.name, element.city_6.name, element.city_7.name, element.city_8.name, element.city_9.name, element.city_10.name)
+fun getCityName(element: Citys = Citys): List<City> {
+  val listOfCitys:List<City> = listOf(element.city_1, element.city_2, element.city_3, element.city_4, element.city_5, element.city_6, element.city_7, element.city_8, element.city_9, element.city_10)
 return listOfCitys
 }

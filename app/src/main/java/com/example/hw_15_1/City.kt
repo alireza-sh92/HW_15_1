@@ -1,3 +1,6 @@
 package com.example.hw_15_1
 
-data class City(val name:String)
+import android.os.Parcelable
+
+@Parcelize
+data class City(val name:String):Parcelable
