@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hw_15_1.databinding.SelectedFragmentBinding
 import com.example.hw_15_1.recyclerview.RecyclerAdapter
+import com.example.hw_15_1.viewmodels.SharedViewModel
 
 class SelectedCityFragment : Fragment(R.layout.selected_fragment) {
     private var fragmentBinding: SelectedFragmentBinding? = null
@@ -30,9 +30,6 @@ class SelectedCityFragment : Fragment(R.layout.selected_fragment) {
         super.onViewCreated(view, savedInstanceState)
         val rvSelectedCity: RecyclerView? =fragmentBinding?.rvSelectedCity
 
-        model.selected.observe(viewLifecycleOwner, Observer {
-            // TODO: Ui Must Update!
-        })
 
 //        val adapterSelectedCity = RecyclerAdapter()
 //        rvSelectedCity.adapter = adapterSelectedCity

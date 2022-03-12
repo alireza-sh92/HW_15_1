@@ -12,6 +12,8 @@ import com.example.hw_15_1.data.City
 
 class RecyclerAdapter(private val cityList:List<City>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     var tracker: SelectionTracker<City>? = null
+    private var selectedItemPosition:MutableList<Int> = mutableListOf()
+
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val cityTextView = itemView.findViewById<TextView>(R.id.tvCityName)
 

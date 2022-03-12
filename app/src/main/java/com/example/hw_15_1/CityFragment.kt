@@ -18,10 +18,15 @@ import com.example.hw_15_1.databinding.CityFragmentBinding
 import com.example.hw_15_1.recyclerview.MyItemDetailsLookup
 import com.example.hw_15_1.recyclerview.MyItemKeyProvider
 import com.example.hw_15_1.recyclerview.RecyclerAdapter
+import com.example.hw_15_1.viewmodels.SharedViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class CityFragment : Fragment(R.layout.city_fragment) {
-
+    private var mySharedViewModel: SharedViewModel? = null
+    private lateinit var selectedCity: List<City>
     private lateinit var fragmentBinding: CityFragmentBinding
+
+
     private lateinit var layoutmanager: RecyclerView.LayoutManager
     private lateinit var adapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
     private val model: SharedViewModel by activityViewModels()
@@ -32,14 +37,18 @@ class CityFragment : Fragment(R.layout.city_fragment) {
         savedInstanceState: Bundle?
     ): View {
         fragmentBinding = CityFragmentBinding.inflate(inflater, container, false)
+        val sendDataButton:FloatingActionButton = fragmentBinding.btChangeFragment
+        sendDataButton.setOnClickListener {
+            mySharedViewModel?.setData(selectedCity)
+        }
         return fragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val rvCity: RecyclerView = fragmentBinding.rvCity
-        val listOfCity = getCityName()
-        val adapterCity = RecyclerAdapter(listOfCity)
+
+        val adapterCity = RecyclerAdapter(getCityName())
         rvCity.adapter = adapterCity
         rvCity.layoutManager = LinearLayoutManager(activity)
 
