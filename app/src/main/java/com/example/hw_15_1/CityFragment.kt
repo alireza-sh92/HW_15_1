@@ -1,6 +1,7 @@
 package com.example.hw_15_1
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,51 +14,59 @@ import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hw_15_1.data.City
-import com.example.hw_15_1.data.getCityName
 import com.example.hw_15_1.databinding.CityFragmentBinding
 import com.example.hw_15_1.recyclerview.MyItemDetailsLookup
 import com.example.hw_15_1.recyclerview.MyItemKeyProvider
 import com.example.hw_15_1.recyclerview.RecyclerAdapter
-import com.example.hw_15_1.viewmodels.SharedViewModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.hw_15_1.viewmodels.MyViewModel
 
 class CityFragment : Fragment(R.layout.city_fragment) {
-    private var mySharedViewModel: SharedViewModel? = null
+    companion object{
+        const val TAG = "City Fragment"
+    }
     private lateinit var selectedCity: List<City>
     private lateinit var fragmentBinding: CityFragmentBinding
+    private val model: MyViewModel by activityViewModels()
+    private var tracker: SelectionTracker<City>? = null
 
 
     private lateinit var layoutmanager: RecyclerView.LayoutManager
     private lateinit var adapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
-    private val model: SharedViewModel by activityViewModels()
-    private lateinit var tracker: SelectionTracker<City>
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         fragmentBinding = CityFragmentBinding.inflate(inflater, container, false)
-        val sendDataButton:FloatingActionButton = fragmentBinding.btChangeFragment
-        sendDataButton.setOnClickListener {
-            mySharedViewModel?.setData(selectedCity)
-        }
         return fragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val rvCity: RecyclerView = fragmentBinding.rvCity
+        recyclerAdapterInitialize()
 
-        val adapterCity = RecyclerAdapter(getCityName())
-        rvCity.adapter = adapterCity
-        rvCity.layoutManager = LinearLayoutManager(activity)
 
-       val bt =  fragmentBinding.btChangeFragment
-            .apply {
-                setOnClickListener {
-                    findNavController().navigate(R.id.selectedFragment)
-                }
+
+        val bt = fragmentBinding.btChangeFragment
+        bt.setOnClickListener {
+            if (tracker?.selection?.isEmpty != true){
+                findNavController().navigate(R.id.selectedFragment)
             }
+        }
+
+
+
+    }
+
+    private fun recyclerAdapterInitialize() {
+        val rvCity: RecyclerView = fragmentBinding.rvCity
+        val myCityList: List<City> = model.cityList.value!!
+        val adapterCity = RecyclerAdapter(myCityList)
+
+        rvCity.layoutManager = LinearLayoutManager(context)
+        rvCity.adapter = adapterCity
+        adapterCity.notifyDataSetChanged()
+
         tracker = SelectionTracker.Builder<City>(
             "mySelection",
             rvCity,
@@ -65,11 +74,25 @@ class CityFragment : Fragment(R.layout.city_fragment) {
             MyItemDetailsLookup(rvCity),
             StorageStrategy.createParcelableStorage(City::class.java)
         ).withSelectionPredicate(
-            SelectionPredicates.createSelectAnything()
+            SelectionPredicates.createSelectAnything<City?>()
         ).build()
 
-        adapterCity.tracker = tracker
+        tracker?.addObserver(
+            object : SelectionTracker.SelectionObserver<City>() {
+                override fun onSelectionChanged() {
+                    super.onSelectionChanged()
+                    val litst = tracker!!.selection.map {
+                        it
+                    }
+                    Log.d(TAG,litst.toString())
+                    model.setSelectedCity(litst)
 
+                }
+
+            }
+        )
+
+        adapterCity.tracker = tracker
 
 
     }

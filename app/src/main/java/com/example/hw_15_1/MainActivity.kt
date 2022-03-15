@@ -11,11 +11,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         Sentry.captureMessage("testing SDK setup")
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
-
-
-
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navHostFragment.navController
 
 
     }
