@@ -1,6 +1,6 @@
 package com.example.hw_15_1.data
 
-object Citys {
+object Cities {
     val city_1 = City("Tehran")
     val city_2 = City("Toronto")
     val city_3 = City("Qazvin")
@@ -12,7 +12,18 @@ object Citys {
     val city_9 = City("Chabahar")
     val city_10 = City("Kabul")
 }
-fun getCityName(element: Citys = Citys): List<City> {
-  val listOfCitys:List<City> = listOf(element.city_1, element.city_2, element.city_3, element.city_4, element.city_5, element.city_6, element.city_7, element.city_8, element.city_9, element.city_10)
-return listOfCitys
+
+fun getCityName(element: Cities = Cities): List<City> {
+    return listOf(
+        element.city_1,
+        element.city_2,
+        element.city_3,
+        element.city_4,
+        element.city_5,
+        element.city_6,
+        element.city_7,
+        element.city_8,
+        element.city_9,
+        element.city_10
+    )
 }
